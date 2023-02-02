@@ -14,14 +14,24 @@ def buildJar(){
     sh "mvn clean package"
 }
 
-def buildAndPushImage(){
+/*def buildAndPushImage(){
     echo "this is push stage"
     withCredentials([usernamePassword('credentialsId':'nexus-repo-credentials','usernameVariable':'USER','passwordVariable':'PASS')]){
         sh "docker build -t 143.198.43.144:8083/java-maven-app:${IMAGE_NAME} ."
         sh "echo ${PASS} | docker login -u ${USER} --password-stdin 143.198.43.144:8083"
         sh "docker push 143.198.43.144:8083/java-maven-app:${IMAGE_NAME}"
     }
+}*/
+
+def buildAndPushDockerImage(){
+    echo "this is push stage"
+    withCredentials([usernamePassword('credentialsId':'docker-hub-credentials','usernameVariable':'USER','passwordVariable':'PASS')]){
+        sh "docker build -t shekarsoma493/java-maven-app:${IMAGE_NAME} ."
+        sh "echo ${PASS} | docker login -u ${USER} --password-stdin"
+        sh "docker push shekarsoma493/java-maven-app:${IMAGE_NAME}"
+    }
 }
+
 def commitVersionToGitRepo(){
     withCredentials([usernamePassword('credentialsId': 'git_hub_credentials', 'usernameVariable': 'USER', 'passwordVariable': 'PASS')]){
         sh 'git config user.email "jenkins@example.com"'
