@@ -27,7 +27,6 @@ def buildAndPushImage(){
     echo "this is push stage"
     withCredentials([usernamePassword('credentialsId':'docker-hub-credentials','usernameVariable':'USER','passwordVariable':'PASS')]){
         sh "docker build -t 185140774664.dkr.ecr.us-east-1.amazonaws.com/java-maven-app:${IMAGE_NAME} ."
-        sh "aws ecr get-login-password --region us-east-1 | docker login -u ${USER} --password-stdin 185140774664.dkr.ecr.us-east-1.amazonaws.com"
         sh "docker push 185140774664.dkr.ecr.us-east-1.amazonaws.com/java-maven-app:${IMAGE_NAME}"
     }
 }
