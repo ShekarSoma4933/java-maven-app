@@ -23,12 +23,12 @@ def buildJar(){
     }
 }*/
 
-def buildAndPushDockerImage(){
+def buildAndPushImage(){
     echo "this is push stage"
     withCredentials([usernamePassword('credentialsId':'docker-hub-credentials','usernameVariable':'USER','passwordVariable':'PASS')]){
-        sh "docker build -t shekarsoma493/java-maven-app:${IMAGE_NAME} ."
-        sh "echo ${PASS} | docker login -u ${USER} --password-stdin"
-        sh "docker push shekarsoma493/java-maven-app:${IMAGE_NAME}"
+        sh "docker build -t 185140774664.dkr.ecr.us-east-1.amazonaws.com/java-maven-app:${IMAGE_NAME} ."
+        sh "aws ecr get-login-password --region us-east-1 | docker login -u ${USER} --password-stdin 185140774664.dkr.ecr.us-east-1.amazonaws.com"
+        sh "docker push 185140774664.dkr.ecr.us-east-1.amazonaws.com/java-maven-app:${IMAGE_NAME}"
     }
 }
 
@@ -56,7 +56,7 @@ def commitVersionToGitRepo(){
 }*/
 def deployJar(){
     echo "Deploying the Jar to server"
-    container = "docker run -d -p 8080:8080 shekarsoma493/java-maven-app:${IMAGE_NAME}"
+    container = "docker run -d -p 8080:8080 185140774664.dkr.ecr.us-east-1.amazonaws.com/java-maven-app:${IMAGE_NAME}"
     /*withCredentials([usernamePassword('credentialsId':'nexus-repo-credentials','usernameVariable':'USER','passwordVariable':'PASS')]){
 
     }*/

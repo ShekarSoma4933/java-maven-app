@@ -29,7 +29,7 @@ pipeline {
       stage('Build and Push Image') {
               steps {
                   script{
-                    gv.buildAndPushDockerImage()
+                    gv.buildAndPushImage()
                   }
               }
             }
