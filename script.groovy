@@ -26,9 +26,9 @@ def buildJar(){
 def buildAndPushImage(){
     echo "this is push stage"
     withCredentials([usernamePassword('credentialsId':'aws-ecr-credentials','usernameVariable':'USER','passwordVariable':'PASS')]){
-        sh "docker build -t 185140774664.dkr.ecr.us-east-1.amazonaws.com/java-maven-app:${IMAGE_NAME} ."
-        sh "echo ${PASS} | docker login -u ${USER} --password-stdin 185140774664.dkr.ecr.us-east-1.amazonaws.com"
-        sh "docker push 185140774664.dkr.ecr.us-east-1.amazonaws.com/java-maven-app:${IMAGE_NAME}"
+        sh "docker build -t ${DOCKER_REPO}:${IMAGE_NAME} ."
+        sh "echo ${PASS} | docker login -u ${USER} --password-stdin ${DOCKER_REPO_SERVER}"
+        sh "docker push ${DOCKER_REPO}:${IMAGE_NAME}"
     }
 }
 
