@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${APP_NAME}
+  labels:
+    app: ${APP_NAME}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ${APP_NAME}
+  template:
+    metadata:
+      labels:
+        app: ${APP_NAME}
+    spec:
+      imagePullSecrets:
+        - name: aws-registry-key
+      containers:
+        - image: 185140774664.dkr.ecr.us-east-1.amazonaws.com/java-maven-app:${IMAGE_NAME}
+          name: ${APP_NAME}
+          imagePullPolicy: always
+          ports:
+            - containerPort: 8080
