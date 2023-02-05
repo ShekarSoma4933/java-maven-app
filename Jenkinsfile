@@ -4,6 +4,10 @@ pipeline {
   tools{
       maven 'maven-3.6'
   }
+  environment{
+    AWS_ACCESS_KEY_ID = credentials('AWS-access-key-id')
+    AWS_ACCESS_KEY_SECRET = credentials('AWS-access-key-secret')
+  }
   stages {
       stage('init') {
          steps {
@@ -43,7 +47,8 @@ pipeline {
       stage('deploy'){
         steps{
             script{
-              gv.deployJar()
+            sh "kubectl create deployment nginx-deployment --image=nginx"
+              //gv.deployJar()
             }
         }
       }

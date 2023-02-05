@@ -54,17 +54,13 @@ def commitVersionToGitRepo(){
         }
     }
 }*/
-def deployJar(){
+/*def deployJar(){
     echo "Deploying the Jar to server"
     container = "docker run -d -p 8080:8080 185140774664.dkr.ecr.us-east-1.amazonaws.com/java-maven-app:${IMAGE_NAME}"
-    /*withCredentials([usernamePassword('credentialsId':'nexus-repo-credentials','usernameVariable':'USER','passwordVariable':'PASS')]){
-
-    }*/
-
     sshagent(['docker-global-ec2-user']) {
         sh "ssh -o StrictHostKeyChecking=no ec2-user@18.234.80.161 ${container}"
     }
-}
+}*/
 
 
 
