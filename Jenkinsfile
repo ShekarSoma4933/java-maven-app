@@ -7,11 +7,11 @@ pipeline {
       maven 'maven-3.6'
   }
   environment{
+    APP_NAME = "java-maven-app"
     AWS_ACCESS_KEY_ID = credentials('AWS-access-key-id')
     AWS_ACCESS_KEY_SECRET = credentials('AWS-access-key-secret')
     DOCKER_REPO_SERVER = '185140774664.dkr.ecr.us-east-1.amazonaws.com'
-    DOCKER_REPO = "${DOCKER_REPO_SERVER}/java-maven-app"
-    APP_NAME = "java-maven-app"
+    DOCKER_REPO = "${DOCKER_REPO_SERVER}/${APP_NAME}"
   }
   stages {
       stage('init') {
@@ -52,7 +52,6 @@ pipeline {
       stage('deploy'){
         steps{
             script{
-           // sh "kubectl create deployment nginx-deployment --image=nginx"
               gv.deployJar()
             }
         }

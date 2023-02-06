@@ -17,7 +17,7 @@ spec:
       imagePullSecrets:
         - name: aws-registry-key
       containers:
-        - image: 185140774664.dkr.ecr.us-east-1.amazonaws.com/java-maven-app:${IMAGE_NAME}
+        - image: ${DOCKER_REPO}:${IMAGE_NAME}
           name: ${APP_NAME}
           imagePullPolicy: always
           ports:
